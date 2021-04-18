@@ -17,49 +17,18 @@ data.head()
 y = data.loc[:, 'price']
 X = data.drop(columns='price')
 
-print("Enter bedrooms:")
-bedrooms = input()
-print("Enter bathrooms:")
-bathrooms = input()
-print("Enter sqft Living:")
-sqftLiving = input()
-print("Enter sqft Lot:")
-sqftLot = input()
-print("Enter floors:")
-floors = input()
-print("Enter waterfront:")
-waterfront = input()
-print("Enter number of views:")
-views = input()
-print("Enter condition:")
-condition = input()
-print("Enter grade:")
-grade = input()
-print("Enter sqft Above:")
-sqftAbove = input()
-print("Enter sqft Basement:")
-sqftBasement = input()
-print("Enter year Built:")
-yrBuilt = input()
-print("Enter year Renovated:")
-yearRenovated = input()
-print("Enter zipcode:")
-zipcode = input()
-print("Enter latitude:")
-lat = input()
-print("Enter longitude :")
-long = input()
+with open('input.txt') as my_file:
+    test_array = my_file.readlines()
 print('________________________________')
 print('calculating.....')
 # define model
-model = Lasso(alpha=4000.0)
+model = Lasso()
 # fit model
 model.fit(X, y)
 # define new data
-row = [bedrooms,bathrooms,sqftLiving,sqftLot,floors,waterfront,views,condition,grade,sqftAbove,sqftBasement,yrBuilt,yearRenovated,zipcode,lat,long]
 #row = [3,2.56,1700,4252,3,0,0,4,6,1722,800,1922,0,98114,47.2323,-122.243]
 # make a prediction
-yhat = model.predict([row])
+yhat = model.predict(np.array(test_array).reshape(1, 16))
 # summarize prediction
 print('Predicted: %.3f' % yhat)
 

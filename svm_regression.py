@@ -10,7 +10,8 @@ data.head()
 
 y = data.loc[:, 'price']
 X = data.drop(columns='price')
-
+with open('input.txt') as my_file:
+    test_array = my_file.readlines()
 #sc_X = StandardScaler()
 #sc_y = StandardScaler()
 #X = sc_X.fit_transform(X)
@@ -19,5 +20,5 @@ X = data.drop(columns='price')
 regressor = SVR(kernel = 'rbf')
 regressor.fit(X, y)
 
-y_pred = regressor.predict(np.array([3,2.56,1700,4252,3,0,0,4,6,1722,800,1922,0,98114,47.2323,-122.243]).reshape(1, 16))
+y_pred = regressor.predict(np.array(test_array).reshape(1, 16))
 print(str(int(y_pred[0])) + '$')
